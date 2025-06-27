@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar } from "@/components/ui/calendar";
@@ -154,10 +154,6 @@ const VisitAnalytics = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const isMobile = useIsMobile();
 
-  /*const hourlyData = generateHourlyData();
-  const dailyData = generateDailyData();
-  const allLaneData = generateLaneData();*/
-
   const hourlyData = useMemo(() => generateHourlyData(), []);
   const dailyData = useMemo(() => generateDailyData(), []);
   const allLaneData = useMemo(() => generateLaneData(), []);
@@ -170,16 +166,6 @@ const VisitAnalytics = () => {
     return allLaneData.filter(item => item.id === laneFilter);
   }, [laneFilter, allLaneData]);
 
- /* const frequentVisitors = generateFrequentVisitors();
-  const addressVisits = generateAddressVisits();
-
-  const filteredVisitors = frequentVisitors.filter(visitor => 
-    visitor.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const filteredAddresses = addressVisits.filter(address => 
-    address.address.toLowerCase().includes(searchTerm.toLowerCase())
-  );*/
   const frequentVisitors = useMemo(() => generateFrequentVisitors(), []);
   const addressVisits = useMemo(() => generateAddressVisits(), []);
 
@@ -201,7 +187,6 @@ const VisitAnalytics = () => {
     console.log("Lane filter changed to:", laneFilter);
     console.log("Filtered data:", laneData);
   }, [laneFilter, laneData]);
-
 
   return (
     <Card className="shadow-sm">
